@@ -28,11 +28,9 @@ var DayOfWeek = function(x,y){
     this.height = 20;
 }
 // empty array of tiles
-var tiles = [];
+ var tiles = [];
 
 var arr_Days =[];
-
-
 
 var month = new Array();
 month[0] = "January";
@@ -52,24 +50,38 @@ month[11] = "December";
 // track mouse clicks
 let mouse_click_count = 0;
 
+// used for click events don't remove them
 let first;
 let second;
 
 // Build some date vars for use later
 let my_date = new Date();
-let day_of_week = my_date.getDay()
+
+
+//Dont this this gets used
+function day_of_week(){
+    return my_date.getDay();
+}
+
 
 // This returns the first day of given month.
-var firstDay = new Date(my_date.getFullYear(), my_date.getMonth(), 1);
+// used in mouseevent.js and createcalendar.js
+// example if day is monday this will return 1
+// if friday this will return 5
+function firstDay (){
+    x = new Date(my_date.getFullYear(), my_date.getMonth(), 1); 
+return x; 
+} 
 
-//console.log("Start day: " + firstDay.getDay());
+//Note to self year must come before month
+function daysInMonth(){
+    x = new Date(my_date.getFullYear(), my_date.getMonth()+1, 0).getDate();
+    //console.log("daysInMonth returns " + x)
+return x;
+}
 // lastDay is the last day of the month
-var lastDay = new Date(my_date.getFullYear(), my_date.getMonth()+1, 0);
+//var lastDay = new Date(my_date.getFullYear(), my_date.getMonth()+1, 0);
 
-
-
-//console.log("month: " + this_month + " year: " + this_year)
-//console.log("Days in this month:"  + daysInMonth(this_month, this_year))
     // this_month is the current month
 function this_month(){
     return my_date.getMonth() + 1;
@@ -85,14 +97,7 @@ function clear(){
     
 }
 //function to return the number of days in a given month.
-function daysInMonth(month, year){
-    return new Date(year, month, 0).getDate();  
-}
 
-
-
-
-//console.log(day_of_week)
 
 // Draws the calendar
 Tile.prototype.draw = function(x, y, i){
@@ -211,7 +216,33 @@ function drawCalendar(){
     }
 }
 }
+//////////////////////////////////////////////////////////
+// form events section
 
+// increments the month
+function nextmonth(){
+ let i = my_date.getMonth();
+    i++;
+    my_date.setMonth(i);
+    clearEvent()
+    clear();
+    init();
+
+    
+}
+
+// work on this.
+function prevmonth(){
+   let i = my_date.getMonth();
+    i--;
+    my_date.setMonth(i);
+    clearEvent()
+    clear();
+    init();
+}
+
+
+// handles the form visiblity
 function Event_Scheduler_Menu(){
     document.getElementById("myForm").style.display = "block";
 }
@@ -302,15 +333,19 @@ for(let i = 0; i < tiles.length; i++){
 
 function init(){
     // this_month is the current month
-let xmonth = this_month();
+
 
 // this year is the current year
-let xyear = this_year();
+
     
-var get_month = month[my_date.getMonth()];
-document.getElementById("whichmonth").innerHTML =  get_month;
-createCalendar(xmonth, xyear);
-drawCalendar();   
+var nameOfMonth = month[my_date.getMonth()];
+document.getElementById("whichmonth").innerHTML =  nameOfMonth;
+clear();
+tiles.length = 0;
+    //console.log(tiles.length);
+createCalendar();
+drawCalendar();
+    //console.log(tiles.length);
 }
 // main function to create calendar
 

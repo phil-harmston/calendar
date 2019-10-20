@@ -4,7 +4,7 @@ function mouseClicked(mouseX, mouseY) {
     if(mouse_click_count == 0){
        Event_Scheduler_Menu(); 
       
-        for (let i = firstDay.getDay(); i < tiles.length; i++) {
+        for (let i = firstDay().getDay(); i < tiles.length; i++) {
             if(tiles[i].isUnderMouse(mouseX, mouseY)) {
                 first = i;
                 mouse_click_count = 1;
@@ -13,7 +13,7 @@ function mouseClicked(mouseX, mouseY) {
             }
         }
     }else{   
-        for (let i = firstDay.getDay(); i < tiles.length; i++) {
+        for (let i = firstDay().getDay(); i < tiles.length; i++) {
             if (tiles[i].isUnderMouse(mouseX, mouseY)) {
                 tiles[i].changeColor('red');
                 second = i;

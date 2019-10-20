@@ -1,10 +1,15 @@
+daysInmonthArray = [31,28,31,30,31,30,31,31,30,31,30,31];
+
+
+
 //This files takes in the current month and year it then draws all the calendar days
 // and sets the correct days in the correct places.
 
-function createCalendar(this_month, this_year){
-    let cols = 4;
+function createCalendar(){
+    let cols = 5;
     let rows = 6;
     let j = 1;
+    
 /*
 rather than drawing the whole array at once we create one week at a time so the array is in order
 
@@ -67,11 +72,22 @@ creates week 5
 
             }   
         } 
+        
+        if(k == 5){
+            for (i =0; i <= rows; i++) {
+
+                let tilex = i * 103;
+                let tiley = j * 603-38;
+                
+                tiles.push(new Tile(tilex, tiley, this.width, this.width));
+
+            }   
+        } 
     }//main for loop
     
 
     createWeekDays();
-    setDaysInMonth(this_month, this_year);
+    setDaysInMonth();
     
 }
 
@@ -97,11 +113,24 @@ for (let i = 0; i< hcols; i++){
 
 
 // function iterates through tiles[] setting the date on each day so it can be drawn
-function setDaysInMonth(this_month, this_year){
-    i=0;
-    for(var x = firstDay.getDate(); i <= daysInMonth(this_month, this_year); x++){
-       tiles[x].today = i;
-       i++;
-   }
+function setDaysInMonth(){
+   i = 1;
+ let dayone = firstDay();
+    
+   
+    
+    //console.log("this first day " + thisFirstDay.getDay());
+ let daysInThisMonth = daysInMonth();
+// z =  thisFirstDay.getDay();
+//console.log("days in this month " +daysInThisMonth);
+//    console.log("get day: " + z);
+   // console.log(my_date.getMonth());
+    
+for (let x = dayone.getDay(); i <= daysInThisMonth; ++x){
+    tiles[x].today = i;
+    i++;
+    }
+    
+ 
 
 }

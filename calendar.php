@@ -7,7 +7,7 @@
     </head>
     <body onload = "init()">
     <link rel = "stylesheet" type = "text/css" href = "popup.css" />
-        <canvas id="myCanvas" width="1000" height="570" style="border:0px solid #d3d3d3;">
+        <canvas id="myCanvas" width="1000" height="670" style="border:0px solid #d3d3d3;">
         </canvas>
         <div class = "monthselector" id="monthselector" name="monthselector">
         <form class ="changemonth" id="changemonth" name="changemonth">
