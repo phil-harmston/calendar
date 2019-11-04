@@ -1,7 +1,6 @@
 class eventschedule {
     constructor(eventname){
-        i = 0;
-        this.eventID = i++;
+        this.eventID = "";
         this.eventname = eventname;
         
         

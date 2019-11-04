@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -15,7 +16,8 @@
             <label for = 'msg' id="whichmonth"><b>Month</b></label>
             <button type="button" class="nextmonth" onclick="nextmonth()">"Next Month"</button>
             </form>
-        </div>
+        </div><br>
+        <div name="postevent" id="postevent"></div>
         <div class="event_maker" id="myForm">
             <form action="/action_page.php" class="form-container">
                 <h1>Event Maker</h1>
@@ -31,6 +33,7 @@
                 <button type="button" class="btn clear" onclick="clearEvent()">Clear</button>
             </form>
         </div> 
+        
 <script src = "createcalendar.js"></script>
 <script src = "mousevents.js"></script>       
 <script src = "eventschedule.js"></script>

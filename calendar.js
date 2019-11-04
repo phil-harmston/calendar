@@ -11,7 +11,9 @@ var Tile = function(x,y){
     this.y = y;
     this.width = 100;
     this.today = "";
-    this.event = [];
+    this.month = "";
+    this.year = "";    
+    this.event = "";
     this.selected = false;
     this.clickposition = '';
     this.color = "";
@@ -129,12 +131,11 @@ Tile.prototype.draw = function(x, y, i){
     }
     if(this.event.length != 0){
         ctx.font = "10px Arial";
-        for(i= 0; i < this.event.length; i ++){
-            y = y + 10;
             
-        ctx.fillText(this.event[i].eventname, x+2, y);
+        ctx.fillText(this.event, x+4, y+10);
+            
         }
-    }
+    
     ctx.stroke();   
 }
 
@@ -204,7 +205,17 @@ DayOfWeek.prototype.draw = function(x ,y, index){
 //This function just draws the calendar
 // The calendar objects are created in createcalendar.js
  
-function drawCalendar(){
+function drawCalendar(data){
+     //alert(data[2]);
+    for(t in tiles){
+       for(d in data){  
+           console.log(data[d].EventTitle);
+        if (data[d].Day == tiles[t].today){
+            tiles[t].event = data[d].EventTitle;
+        }
+           //alert(data[2]);
+    }
+    }
     //draw the days
     for (var i =0; i < arr_Days.length; i++){
     arr_Days[i].draw(arr_Days[i].x, arr_Days[i].y, i);
@@ -215,6 +226,7 @@ function drawCalendar(){
     tiles[i].draw(tiles[i].x, tiles[i].y, i);
     }
 }
+
 }
 //////////////////////////////////////////////////////////
 // form events section
@@ -263,18 +275,64 @@ function clearEvent(){
 }
 
 function submitForm(){
-    for(let i = 0; i < tiles.length; i++){
-        if(tiles[i].selected ==true){
-            var myevent = new eventschedule(document.getElementById("eventname").value);
-            tiles[i].event.push(myevent);
-            //document.getElementById("eventname").value
-            //tiles.push(new Tile(tilex, tiley, this.width, this.width));
-            clear();
-            drawCalendar();
-            mouse_click_count = 0;
-        }
+    var myevent = document.getElementById("eventname").value;
+    var eventschedule = {
+       eventdays : [] 
+    };
+    eventdays = [];
+    for(i in tiles){
+        var item = tiles[i];
+        if(item.selected ==true){
+            item.event = myevent;
+            eventschedule.eventdays.push({
+                "EventDay" : item.today,
+                "Month" : item.month,
+                "Year" : item.year,
+                "EventName" : item.event
+        });
     }
+    
+    }
+    //JSON.stringify(eventschedule);
+    //console.log(eventstring);
+    
+    for(let i = 0; i < tiles.length; i++){
+        tiles[i].selected = false;
+    }
+    sendajax(JSON.stringify(eventschedule));
+    clear();
+    drawCalendar();
+    mouse_click_count = 0;
+    second = 0;
+    first = 0;    
+    
 }
+
+function sendajax(eventstring){
+   
+    
+   
+    var url = "create_event.php";
+            var hr = new XMLHttpRequest();
+            //var wholedate = "20191101";
+            //console.log("Date " + wholedate);
+    //console.log(encodedVars);
+            hr.open('POST', url, true);
+            
+           hr.setRequestHeader("Content-type", "application/json");
+            hr.onreadystatechange = function(){
+                if (hr.readyState ==4 && hr.status==200){
+                    var return_data = hr.responseText;
+                    document.getElementById('postevent').innerhtml = "";
+                    document.getElementById("postevent").innerHTML = return_data;
+                    console.log(return_data);
+                }
+            }
+            hr.send(eventstring);
+            //console.log();
+            //document.getElementById("postevent").innerHTML = "processing ....";
+        }
+    
 
     
 function fillCalendar(x, y){
@@ -329,22 +387,49 @@ for(let i = 0; i < tiles.length; i++){
 
    }
 }
+    
+}
+
+function getEvents(){
+    
+    let data;
+   
+    var url = "retrieve_event.php";
+            let hr = new XMLHttpRequest();
+            let encodedVars = "CurrentMonth=" + month[my_date.getMonth()] + "&CurrentYear=" + my_date.getFullYear();
+            hr.open('POST', url, true);
+           hr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+            hr.onreadystatechange = function(){
+                if (hr.readyState ==4 && hr.status==200){
+                    //return_data = hr.responseText;
+                    console.log(hr.responseText);
+                    data = JSON.parse(hr.responseText);
+                    drawCalendar(data);
+                    //document.getElementById("postevent").innerHTML = return_data;
+                    console.log(data);
+                    
+                }
+            }
+            
+    hr.send(encodedVars);
+    //return data;
+  //  console.log(return_data);
 }
 
 function init(){
-    // this_month is the current month
-
-
-// this year is the current year
+var nameOfMonth = month[my_date.getMonth()];
 
     
-var nameOfMonth = month[my_date.getMonth()];
+
 document.getElementById("whichmonth").innerHTML =  nameOfMonth;
 clear();
 tiles.length = 0;
+//getEvents(nameOfMonth);
     //console.log(tiles.length);
 createCalendar();
-drawCalendar();
+    getEvents()
+//drawCalendar();
+
     //console.log(tiles.length);
 }
 // main function to create calendar

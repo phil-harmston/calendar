@@ -115,19 +115,14 @@ for (let i = 0; i< hcols; i++){
 // function iterates through tiles[] setting the date on each day so it can be drawn
 function setDaysInMonth(){
    i = 1;
- let dayone = firstDay();
-    
-   
-    
-    //console.log("this first day " + thisFirstDay.getDay());
- let daysInThisMonth = daysInMonth();
-// z =  thisFirstDay.getDay();
-//console.log("days in this month " +daysInThisMonth);
-//    console.log("get day: " + z);
-   // console.log(my_date.getMonth());
+let dayone = firstDay();
+let daysInThisMonth = daysInMonth();
+var nameOfMonth = month[my_date.getMonth()];   
     
 for (let x = dayone.getDay(); i <= daysInThisMonth; ++x){
     tiles[x].today = i;
+    tiles[x].month = nameOfMonth;
+    tiles[x].year = this_year();
     i++;
     }
     
