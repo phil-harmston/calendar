@@ -209,7 +209,7 @@ function drawCalendar(data){
      //alert(data[2]);
     for(t in tiles){
        for(d in data){  
-           console.log(data[d].EventTitle);
+           //console.log(data[d].EventTitle);
         if (data[d].Day == tiles[t].today){
             tiles[t].event = data[d].EventTitle;
         }
@@ -300,8 +300,9 @@ function submitForm(){
         tiles[i].selected = false;
     }
     sendajax(JSON.stringify(eventschedule));
-    clear();
-    drawCalendar();
+    //clear();
+    init();
+   // drawCalendar();
     mouse_click_count = 0;
     second = 0;
     first = 0;    

@@ -4,7 +4,22 @@ include("dbconnection.php");
 $myjson = file_get_contents('php://input');
 
 
-
+function searchEvent($con, $eventtitle, $day, $month, $year){
+    $search = "SELECT * FROM calendar.Events WHERE `Day`=" .$day ." AND `Month`='" .$month ."' AND `Year`=" .$year .";";
+    $results = $con -> query($search);
+    //$rows = mysqli_num_rows($results);
+    //echo "<br> rows is: " .$rows ."<br>";
+    if (!$results || mysqli_num_rows($results) == 0){
+        createEvent($con, $eventtitle, $day, $month, $year);
+        //$failmess = "Whole query: " . $search . "<br>";
+        //echo $failmess;
+        
+        //print ('Invalid query: ' . mysqli_error($con) . "<br>");
+    } else {
+        echo "Date is taken";
+    }
+    //echo $success;
+}
 
 function createEvent($con, $eventtitle, $day, $month, $year){
     $insert = "INSERT INTO calendar.Events (`EventTitle`, `Day`, `Month`, `Year`) "
@@ -13,11 +28,12 @@ function createEvent($con, $eventtitle, $day, $month, $year){
     $success = $con -> query($insert);
     
     if ($success ==FALSE){
-        $failmess = "Whole query: " . $insert . "<br>";
+        //$failmess = "Whole query: " . $insert . "<br>";
         //echo $failmess;
+        
         print ('Invalid query: ' . mysqli_error($con) . "<br>");
     } else {
-        echo  "<br>";
+        echo "accepted.<br>";
     }
 }
 
@@ -30,6 +46,7 @@ function isJSON($j){
    return is_string($j) && is_array(json_decode($j, true)) && (json_last_error() == JSON_ERROR_NONE) ? true : false;
 }
 
+
 echo "<br>";
 if(isJSON($myjson)){
 $data = json_decode($myjson);
@@ -40,24 +57,13 @@ foreach ($data as $obj){
         $day = $obj[$i]->EventDay;
         $month = $obj[$i]->Month;
         $year = $obj[$i]->Year;  
-        //echo $year;
-        createEvent($con, $eventtitle, $day, $month, $year);
+        searchEvent($con, $eventtitle, $day, $month, $year);
     }
-
-
-
-
-    
 }  
-
-
  
 }else{
     echo "Error please pick a date.";
 }
-
-
-//createEvent($con, $myjson);
 
 
 ?>
