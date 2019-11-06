@@ -1,3 +1,5 @@
+//Sample code only not part of the project
+
 function ajax_post(){
             var url = "ajaxpost.php";
             var hr = new XMLHttpRequest();
