@@ -6,10 +6,14 @@ var quantity = document.getElementById("quantity");
 
 var ul = document.querySelector("ul");
 var li = document.getElementsByTagName("li");
+var div = document.createElement('div');
 
 var ItemId = 0;
 var itemArray = [];
-var itemincart = {"name":"", "id": ""};
+var itemincart = {"ID":"",
+                  "Name":"",
+                  "Quantity":"",
+                 };
 itemfordel =[];
 
 function inputLength(){
@@ -24,11 +28,11 @@ function listLength(){
 
 }
 
-function createListElement() {
-
+function createListElement(name, quantity) {
+    var span = document.createElement('span');
     var li = document.createElement("li"); // creates an element "li"
     
-    li.setAttribute('id', ItemId);
+    div.setAttribute('id', ItemId);
     //li.setAttribute('class', 'itemlist');
     itemArray.push(li);
     console.log(itemArray);
@@ -36,8 +40,9 @@ function createListElement() {
     
 
 
-    li.appendChild(document.createTextNode(input.value)); //makes text from input field the li text
-
+    li.appendChild(document.createTextNode(name)); //makes text from input field the li text
+    li.appendChild(document.createTextNode("...................."))
+    li.appendChild(document.createTextNode(quantity));
     ul.appendChild(li); //adds li to ul
 
     input.value = ""; //Reset text input field
@@ -76,9 +81,9 @@ function createListElement() {
     // This creates a key value pair
         // for item in cart.  prob don't need to //add the extra lines but leaving it for //now. 
     itemincart.name = li.innerText;
-    itemincart.id = li.id;
-    
-        deleteItem(itemincart.name, itemincart.id);
+    //itemincart.id = li.id;
+        console.log(itemincart.ID);
+        deleteItem(itemincart.ID);
         
         //itemfordel.push(itemincart);
       //  for (i in itemfordel){
@@ -93,7 +98,7 @@ function createListElement() {
 ///////////////////////////////////////////////////////////////////
 
 function addListAfterClick(){
-    console.log("method called")
+    //console.log("method called")
    if (inputLength() > 0) {
        createListElement();   }else{
        alert("Field cannot be empty");
@@ -116,6 +121,37 @@ input.addEventListener("keypress", addListAfterKeypress);
 
 ///////////////////////////////////////////////
 // ajax functions
+function get_list(){
+    var data;
+    var url = "retrieve_list.php";
+    let hr = new XMLHttpRequest();
+    hr.open('POST', url, true);
+    hr.setRequestHeader('Content-type', 'application/json');
+    hr.onreadystatechange = function(){
+        if (hr.readyState == 4){
+           data = JSON.parse(hr.responseText);
+            //console.log(data);
+            create_list(data)
+        }
+        
+    } 
+   
+    hr.send();
+    
+}
+
+function create_list(data){
+  
+     for(i=0; i<data.length; i++){
+         itemincart.ID = data[i].itemID
+         itemincart.Name=data[i].itemName
+         itemincart.Quantity=data[i].itemQuantity
+         createListElement(itemincart.Name, itemincart.Quantity)
+     }   
+    
+    }
+    
+
 
 function addItem(){
 var file = "create_item.php";
@@ -125,11 +161,10 @@ ajax(str, file);
 }   
     
 
-function deleteItem(name,id){
+function deleteItem(id){
 var file = "delete_item.php";
 
-let str = "name=" + name;
-str += "&id=" + id;
+str = "ID=" + id;
     console.log(str);
     ajax(str, file);
 }
@@ -146,5 +181,12 @@ function ajax(str, file){
   xhttp.open("POST", file, true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
   xhttp.send(str); 
+    
+}
+
+function init(){
+ get_list()
+
+    
     
 }

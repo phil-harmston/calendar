@@ -4,7 +4,7 @@ $id = $_POST['ID'];
 
 
 
-function search_Item($con, $eventtitle, $day, $month, $year){
+function search_Item($con, $id){
     $search = "SELECT * FROM calendar.itemTable WHERE `itemID`='" .$id ."'";
     $results = $con -> query($search);
 
@@ -26,4 +26,4 @@ function delete_Item($con, $id){
 
 }
 
-search_Item();
+search_Item($con, $id);
