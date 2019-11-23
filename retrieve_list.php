@@ -8,7 +8,7 @@ function retrieve_db($con){
     $result = $con -> query($search);
     //echo $result;
     $dbdata = array();
-    if ($result ==FALSE){
+    if ($result == FALSE){
         $failmess = "Whole query: " .$result ."<br>";
         echo $failmess;
         print ('Invalid query: ' .mysqli_error($con) ."<br>");
@@ -22,10 +22,7 @@ function retrieve_db($con){
 echo json_encode($dbdata);
 
 }
-//The month comes in as one off because it comes from an array.
-// just add 1 to make it correct and use it to search.
 
-//echo $currentmonth ."<br>";
 retrieve_db($con);
 
 ?>
