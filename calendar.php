@@ -4,11 +4,20 @@
     <head>
         
         <meta charset="UTF-8">
-
+<header class="header-navigation" id="header">
+    
+        <nav>
+            <a style="color: black" class="link" href="http://pickle-rick.net/cart.html" title="Home">Home</a>
+            <a style="color: black" class="link" href="#" title="About">About</a>
+            <a style = "color: black" class="link" href="#" title="Calandar">Calandar</a>
+        </nav>
+    </header>
     </head>
     <body onload = "init()">
     <link rel = "stylesheet" type = "text/css" href = "popup.css" />
-        <canvas id="myCanvas" width="1000" height="670" style="border:0px solid #d3d3d3;">
+       <div class="head-syle"><div>Calendar Project</div>
+        </div>
+        <canvas id="myCanvas" width="720" height="670" style="border:2px solid #d3d3d3;">
         </canvas>
         <div class = "monthselector" id="monthselector" name="monthselector">
         <form class ="changemonth" id="changemonth" name="changemonth">
