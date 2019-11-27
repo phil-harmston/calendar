@@ -1,0 +1,158 @@
+.header-navigation
+{
+text-align: center;
+  font-size: 30px;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 60px;
+  line-height: 60px;
+  background-color: lightgray;
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+  font-family: 'open sans', sans-serif;
+  font-weight: 100;
+}
+
+.header-navigation a: Home
+{
+    text-align: left;
+}
+
+.header-navigation a: About
+{
+    text-align: center;
+}
+
+.header-navigation a: Calandar
+{
+    text-align: right;
+}
+
+.header
+{
+    padding: 100px;
+    text-align: center;
+    font-family: 'open sans', sans-serif;
+
+
+}
+
+.header h1
+{
+
+    font-size: 40px;
+    color: whitesmoke;
+    font-weight: 900;
+    text-decoration: underline;
+    text-shadow: black 0 -4px;
+}
+
+.header h2
+{
+
+    font-size: 20px;
+    color: #FFCD5D;
+    font-weight: 600;
+    text-shadow: grey 0 -2px;
+
+}
+
+body {
+   background: url(../img/cabin1.png);
+   padding-top: 100px;
+   background-size: 100% auto;
+   margin: 0 auto;
+   text-align: center;
+}
+
+/* Add styles to the form container */
+.form-container {
+  max-width: 300px;
+  text-align: center;
+  padding: 10px auto;
+  padding-bottom: 20px;
+  margin: 25px auto;
+  border: darkgrey 3px solid;
+  background-color: rgba(222,184,135,0.5);
+  border-radius: 10%;
+}
+
+.form-container .list {
+    list-style: none;
+    margin-right: 35px;
+}
+
+.form-container .labels {
+    font: Verdana bold 12px;
+    color: black;
+}
+
+/*Styling for event form title*/
+.form-container .title {
+    font: Dekko;
+    font-size: bold 25px;
+    text-decoration: underline;
+    color: black;
+}
+
+/* Set a style for the submit/login button */
+.form-container .btn {
+  text-align: center;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  width: 50%;
+  margin-bottom:10px;
+}
+
+/* Add a red background color to the cancel button */
+.form-container #cancel {
+  background-color: lightcoral;
+}
+
+.form-conatiner #clear {
+    background-color: darkgrey;
+}
+
+.form-container #submit {
+    background-color: lightgreen;
+}
+
+/* Add some hover effects to buttons */
+.form-container .btn:hover, .open-button:hover {
+  opacity: 1;
+}
+
+.monthselector{
+    margin: 25px auto;
+}
+
+.myCanvas{
+  padding-left: 5%;
+  margin-left: 200px;
+
+    /*border: 1px solid black; trying to make the calendar stand out more. */
+}
+
+
+
+footer.stikybottom {
+    position: fixed;
+    bottom:0;
+    left: 0;
+    right:0;
+}
+
+button {
+    font-size: 15px;
+    text-align: center;
+    border-radius: 3%;
+}
+
+button:hover {
+    background-color: whitesmoke;
+}
+
+.eventname {
+    height: 70px;
+}
